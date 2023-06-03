@@ -36,7 +36,7 @@ class Dibugger:
             await msg.channel.send(self.no_perm_msg)
             return
 
-        cmd = msg.content[len(self.prefix) + 1 :]
+        cmd = msg.content[len(self.prefix) :]
 
         for command in self.__commands:
             if cmd.startswith(command.name):
