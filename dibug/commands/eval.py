@@ -24,7 +24,7 @@ class EvalCommand(DibugCommand):
         try:
             result = eval(args)
 
-            embed = eval_embed(args, msg, 0x2B2D31)
+            embed = eval_embed(args, 0x2B2D31)
 
             chunked = chunk_string(
                 "\n".join(inspect(result, 0)),
@@ -48,7 +48,7 @@ class EvalCommand(DibugCommand):
             await msg.reply(embed=embed)
 
         except Exception as e:
-            embed = eval_embed(args, msg, 0xFF0000).add_field(
+            embed = eval_embed(args, 0xFF0000).add_field(
                 name="Error",
                 value=f"```py\n{''.join(format_exception(e))}```",
                 inline=False,
