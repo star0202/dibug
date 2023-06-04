@@ -31,4 +31,6 @@ bot.run("token")
 
 # Commands
 
-- `eval <code>`: Evaluate code
+### Default Prefix: `!dbg `
+
+- `<prefix>eval <code>`: Evaluate code
