@@ -9,6 +9,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.10"
 discord-py = ">=2.0.0"
+async-eval = "^0.1.11"
 
 [tool.poetry.group.style.dependencies]
 black = "^23.3.0"

@@ -1,5 +1,6 @@
 from traceback import format_exception
 
+from async_eval import eval
 from discord import Client, Message
 
 from ..abc import DibugCommand
@@ -19,10 +20,8 @@ class EvalCommand(DibugCommand):
         if args.startswith("```py") and args.endswith("```"):
             args = args[5:-3]
 
-        client = self.client  # shortcut
-
         try:
-            result = eval(args)
+            result = eval(args, {"client": self.client, "msg": msg})
 
             embed = eval_embed(args, 0x2B2D31)
 
@@ -48,10 +47,13 @@ class EvalCommand(DibugCommand):
             await msg.reply(embed=embed)
 
         except Exception as e:
-            embed = eval_embed(args, 0xFF0000).add_field(
-                name="Error",
-                value=f"```py\n{''.join(format_exception(e))}```",
-                inline=False,
-            )
+            embed = eval_embed(args, 0xFF0000)
+            chunked = chunk_string("".join(format_exception(e)), 1024 - 10)
+            for idx in range(len(chunked)):
+                embed.add_field(
+                    name=f"Error {idx + 1}/{len(chunked)}",
+                    value=f"```py\n{chunked[idx]}```",
+                    inline=False,
+                )
 
             await msg.reply(embed=embed)

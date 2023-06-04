@@ -123,6 +123,25 @@ files = [
 frozenlist = ">=1.1.0"
 
 [[package]]
+name = "async-eval"
+version = "0.1.11"
+description = "eval async code from sync"
+optional = false
+python-versions = ">=3.7,<4.0"
+files = [
+    {file = "async_eval-0.1.11-py3-none-any.whl", hash = "sha256:5269ee4dbfb65a40849be7891e33863d8d8be958448e444801b7f408d2a38323"},
+    {file = "async_eval-0.1.11.tar.gz", hash = "sha256:2590880fdf9eae73ce17979f9a4892bb7e683bdbe11b4a47f1530a0461cd0383"},
+]
+
+[package.dependencies]
+nest-asyncio = ">=1.5.6,<2.0.0"
+
+[package.extras]
+all = ["pydevd-pycharm (<=223.4884.74)", "trio (>=0.21,<0.23)"]
+pydevd-pycharm = ["pydevd-pycharm (<=223.4884.74)"]
+trio = ["trio (>=0.21,<0.23)"]
+
+[[package]]
 name = "async-timeout"
 version = "4.0.2"
 description = "Timeout context manager for asyncio programs"
@@ -580,6 +599,17 @@ files = [
 ]
 
 [[package]]
+name = "nest-asyncio"
+version = "1.5.6"
+description = "Patch asyncio to allow nested event loops"
+optional = false
+python-versions = ">=3.5"
+files = [
+    {file = "nest_asyncio-1.5.6-py3-none-any.whl", hash = "sha256:b9a953fb40dceaa587d109609098db21900182b16440652454a146cffb06e8b8"},
+    {file = "nest_asyncio-1.5.6.tar.gz", hash = "sha256:d267cc1ff794403f7df692964d1d2a3fa9418ffea2a3f6859a439ff482fef290"},
+]
+
+[[package]]
 name = "packaging"
 version = "23.1"
 description = "Core utilities for Python packages"
@@ -728,4 +758,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "3498df907726533a39fa8fa63dd9dfb6b7844e2164cc85a4ce649e08dffd9d57"
+content-hash = "b017ac92431766a2f7ca1ba18081c0abecc54c5036d88c60410a3f04c81602ab"
