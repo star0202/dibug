@@ -20,6 +20,9 @@ def inspect(obj: Any, indent: int) -> list[str]:
     for member in members:
         lines.append(" " * (indent + 2) + str(member))
 
-    lines.append(" " * indent + "]")
+    if not members and not isinstance(obj, Iterable) or isinstance(obj, (str, bytes)):
+        lines[-1] += "]"
+    else:
+        lines.append(" " * indent + "]")
 
     return lines
