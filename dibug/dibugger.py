@@ -1,4 +1,4 @@
-from typing import Any, Callable, Literal, Type
+from typing import Any, Callable, Coroutine, Literal, Type
 
 from discord import Client, Message
 
@@ -10,13 +10,13 @@ class Dibugger:
     def __init__(
         self,
         client: Client,
-        is_owner: Callable[[int], bool],
+        user_has_perm: Callable[[Message], Coroutine[Any, Any, bool]],
         no_perm_msg: str = "No Permission",
         prefix: str = "!dbg",
         default: Literal["info"] = "info",
     ):
         self.client = client
-        self.is_owner = is_owner
+        self.user_has_perm = user_has_perm
         self.no_perm_msg = no_perm_msg
         self.prefix = prefix
         self.default = default
@@ -36,7 +36,7 @@ class Dibugger:
         if msg.author.bot or not msg.content.startswith(self.prefix):
             return
 
-        if not self.is_owner(msg.author.id):
+        if not await self.user_has_perm(msg):
             await msg.channel.send(self.no_perm_msg)
             return
 
