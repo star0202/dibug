@@ -11,6 +11,9 @@ repository = "https://github.com/star0202/dibug"
 python = "^3.10"
 discord-py = ">=2.0.0"
 async-eval = "^0.1.11"
+psutil = "^5.9.5"
+types-setuptools = "^67.8.0.0"
+types-psutil = "^5.9.5.13"
 
 [tool.poetry.group.style.dependencies]
 black = "^23.3.0"

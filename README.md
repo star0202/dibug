@@ -44,7 +44,7 @@ bot.run("token")
 
 # Commands
 
-### Default Prefix: `!dbg `
+### Default Prefix: `!dbg`
 
-- `<prefix>eval | e | python | py <code>`: Evaluate python code
-- `<prefix>shell | sh <code>`: Execute shell command
+- `<prefix> eval | e | python | py <code>`: Evaluate python code
+- `<prefix> shell | sh <code>`: Execute shell command
