@@ -3,7 +3,7 @@ from typing import Any, Callable, Coroutine, Literal, Type
 from discord import Client, Message
 
 from .abc import DibugCommand
-from .commands import EvalCommand, InfoCommand, ShellCommand
+from .commands import EvalCommand, InfoCommand, KillCommand, ShellCommand
 
 
 class Dibugger:
@@ -25,6 +25,7 @@ class Dibugger:
 
         self.__register_command(EvalCommand, ["eval", "e", "python", "py"], self.client)
         self.__register_command(InfoCommand, ["info", "i"], self.client)
+        self.__register_command(KillCommand, ["kill", "k", "shutdown"])
         self.__register_command(ShellCommand, ["shell", "sh"])
 
         if hasattr(self.client, "on_message"):

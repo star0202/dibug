@@ -50,4 +50,5 @@ bot.run("token")
 - `<prefix>` | `<prefix> info | i`: Show bot info
 
 - `<prefix> eval | e | python | py <code>`: Evaluate python code
+- `<prefix> kill | k | shutdown`: Kill bot process
 - `<prefix> shell | sh <code>`: Execute shell command
