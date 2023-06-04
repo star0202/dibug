@@ -43,3 +43,4 @@ class Dibugger:
             for name in command.name:
                 if cmd.startswith(name):
                     await command.execute(msg, cmd[len(name) + 1 :])
+                    return
