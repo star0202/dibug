@@ -1,6 +1,6 @@
 from traceback import format_exception
 
-from discord import Client, Embed, Message
+from discord import Client, Message
 
 from ..abc import DibugCommand
 from ..utils import chunk_string, eval_embed, inspect

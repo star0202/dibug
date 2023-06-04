@@ -1,5 +1,7 @@
 {
     "python.linting.mypyEnabled": true,
+    "python.analysis.typeCheckingMode": "strict",
+    "python.linting.enabled": false,
     "editor.codeActionsOnSave": {
         "source.organizeImports": true
     }
