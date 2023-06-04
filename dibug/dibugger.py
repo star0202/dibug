@@ -27,6 +27,20 @@ class Dibugger:
         self.__register_command(InfoCommand, ["info", "i"], self.client)
         self.__register_command(ShellCommand, ["shell", "sh"])
 
+        if hasattr(self.client, "on_message"):
+            original_func = getattr(self.client, "on_message")
+
+            async def patch(msg: Message) -> None:
+                await original_func(msg)
+                await self.handle_msg(msg)
+
+        else:
+
+            async def patch(msg: Message) -> None:
+                await self.handle_msg(msg)
+
+        setattr(self.client, "on_message", patch)
+
     def __register_command(
         self, command: Type[DibugCommand], name: list[str], *args: Any, **kwargs: Any
     ) -> None:
