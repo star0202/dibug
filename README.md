@@ -1,7 +1,7 @@
-![GitHub Workflow Status (with branch)](https://img.shields.io/github/actions/workflow/status/star0202/dibug/release.yml?branch=stable&style=flat-square)
-![GitHub](https://img.shields.io/github/license/star0202/dibug?style=flat-square)
-![PyPI](https://img.shields.io/pypi/v/dibug?style=flat-square)
-![PyPI - Python Version](https://img.shields.io/pypi/pyversions/dibug?style=flat-square)
+[![GitHub Workflow Status (with branch)](https://img.shields.io/github/actions/workflow/status/star0202/dibug/release.yml?branch=stable&style=flat-square)](https://github.com/star0202/dibug/actions/workflows/release.yml)
+[![GitHub](https://img.shields.io/github/license/star0202/dibug?style=flat-square)](https://github.com/star0202/dibug/blob/master/LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/dibug?style=flat-square)](https://pypi.org/project/dibug)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/dibug?style=flat-square)](https://pypi.org/project/dibug)
 
 # dibug
 
