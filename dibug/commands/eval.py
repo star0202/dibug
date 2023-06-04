@@ -14,7 +14,7 @@ class EvalCommand(DibugCommand):
 
     async def execute(self, msg: Message, args: str) -> None:
         if not args:
-            await msg.channel.send("No codes")
+            await msg.reply("Missing code")
             return
 
         res = await msg.reply("Running...")
