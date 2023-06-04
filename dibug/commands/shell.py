@@ -18,7 +18,7 @@ class ShellCommand(DibugCommand):
         res = await msg.reply("Running...")
 
         if args.startswith("```sh") and args.endswith("```"):
-            args = args[5:-3]
+            args = args[6:-3]
 
         result = run(args, capture_output=True, shell=True, text=True)
 

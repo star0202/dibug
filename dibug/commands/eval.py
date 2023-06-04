@@ -21,7 +21,7 @@ class EvalCommand(DibugCommand):
         res = await msg.reply("Running...")
 
         if args.startswith("```py") and args.endswith("```"):
-            args = args[5:-3]
+            args = args[6:-3]
 
         try:
             result = eval(args, {"client": self.__client, "msg": msg})
