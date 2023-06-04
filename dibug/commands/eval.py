@@ -4,7 +4,7 @@ from async_eval import eval
 from discord import Client, Message
 
 from ..abc import DibugCommand
-from ..utils import chunk_string, eval_embed, inspect
+from ..utils import chunked_fields, eval_embed, inspect
 
 
 class EvalCommand(DibugCommand):
@@ -17,6 +17,8 @@ class EvalCommand(DibugCommand):
             await msg.channel.send("No codes")
             return
 
+        res = await msg.reply("Running...")
+
         if args.startswith("```py") and args.endswith("```"):
             args = args[5:-3]
 
@@ -25,35 +27,29 @@ class EvalCommand(DibugCommand):
 
             embed = eval_embed(args, 0x2B2D31)
 
-            chunked = chunk_string(
+            chunked_fields(
+                embed,
+                "Output (Verbose)",
+                "py",
                 "\n".join(inspect(result, 0)),
                 1024 - 10,
             )
-            for idx in range(len(chunked)):
-                embed.add_field(
-                    name=f"Output (Verbose) {idx + 1}/{len(chunked)}",
-                    value=f"```py\n{chunked[idx]}```",
-                    inline=False,
-                )
 
-            chunked = chunk_string(str(result), 1024 - 10)
-            for idx in range(len(chunked)):
-                embed.add_field(
-                    name=f"Output (Compact) {idx + 1}/{len(chunked)}",
-                    value=f"```py\n{chunked[idx]}```",
-                    inline=False,
-                )
+            chunked_fields(
+                embed,
+                "Output (Compact)",
+                "py",
+                str(result),
+                1024 - 10,
+            )
 
-            await msg.reply(embed=embed)
+            await res.edit(content=None, embed=embed)
 
         except Exception as e:
             embed = eval_embed(args, 0xFF0000)
-            chunked = chunk_string("".join(format_exception(e)), 1024 - 10)
-            for idx in range(len(chunked)):
-                embed.add_field(
-                    name=f"Error {idx + 1}/{len(chunked)}",
-                    value=f"```py\n{chunked[idx]}```",
-                    inline=False,
-                )
 
-            await msg.reply(embed=embed)
+            chunked_fields(
+                embed, "Error", "py", "".join(format_exception(e)), 1024 - 10
+            )
+
+            await res.edit(content=None, embed=embed)
