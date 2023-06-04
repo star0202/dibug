@@ -37,10 +37,10 @@ class Dibugger:
             await msg.channel.send(self.no_perm_msg)
             return
 
-        cmd = msg.content[len(self.prefix) :]
+        cmd = msg.content[len(self.prefix) :].split()
 
         for command in self.__commands:
             for name in command.name:
-                if cmd.startswith(name):
-                    await command.execute(msg, cmd[len(name) + 1 :])
+                if cmd[0] == name:
+                    await command.execute(msg, " ".join(cmd[1:]))
                     return
