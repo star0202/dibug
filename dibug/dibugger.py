@@ -52,7 +52,7 @@ class Dibugger:
             return
 
         if not await self.user_has_perm(msg):
-            await msg.channel.send(self.no_perm_msg)
+            await msg.reply(self.no_perm_msg)
             return
 
         cmd = msg.content[len(self.prefix) :].split()
