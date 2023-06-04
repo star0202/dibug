@@ -48,4 +48,4 @@ jobs:
       - name: Install dependencies
         run: poetry install --no-interaction --with type
       - name: Check type
-        run: poetry run mypy ./dibug
+        run: poetry run mypy
