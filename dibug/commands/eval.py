@@ -10,7 +10,8 @@ from ..utils import DibugEmbed, inspect
 class EvalCommand(DibugCommand):
     def __init__(self, name: list[str], client: Client) -> None:
         self.name = name
-        self.client = client
+
+        self.__client = client
 
     async def execute(self, msg: Message, args: str) -> None:
         if not args:
@@ -23,7 +24,7 @@ class EvalCommand(DibugCommand):
             args = args[5:-3]
 
         try:
-            result = eval(args, {"client": self.client, "msg": msg})
+            result = eval(args, {"client": self.__client, "msg": msg})
 
             embed = (
                 DibugEmbed("Eval")
