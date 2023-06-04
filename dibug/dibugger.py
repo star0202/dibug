@@ -21,12 +21,12 @@ class Dibugger:
 
         self.__commands: list[DibugCommand] = []
 
-        self.__register_command(EvalCommand, client)
+        self.__register_command(EvalCommand, ["eval", "e", "python", "py"], client)
 
     def __register_command(
-        self, command: Type[DibugCommand], *args: Any, **kwargs: Any
+        self, command: Type[DibugCommand], name: list[str], *args: Any, **kwargs: Any
     ) -> None:
-        self.__commands.append(command(*args, **kwargs))
+        self.__commands.append(command(name, *args, **kwargs))
 
     async def handle_msg(self, msg: Message) -> None:
         if msg.author.bot or not msg.content.startswith(self.prefix):
@@ -39,5 +39,6 @@ class Dibugger:
         cmd = msg.content[len(self.prefix) :]
 
         for command in self.__commands:
-            if cmd.startswith(command.name):
-                await command.execute(msg, cmd[len(command.name) + 1 :])
+            for name in command.name:
+                if cmd.startswith(name):
+                    await command.execute(msg, cmd[len(name) + 1 :])

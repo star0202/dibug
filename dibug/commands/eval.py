@@ -8,8 +8,8 @@ from ..utils import chunk_string, eval_embed, inspect
 
 
 class EvalCommand(DibugCommand):
-    def __init__(self, client: Client) -> None:
-        self.name = "eval"
+    def __init__(self, name: list[str], client: Client) -> None:
+        self.name = name
         self.client = client
 
     async def execute(self, msg: Message, args: str) -> None:

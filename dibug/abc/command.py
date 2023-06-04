@@ -5,9 +5,9 @@ from discord import Message
 
 
 class DibugCommand(ABC):
-    name: str
+    name: list[str]
 
-    def __init__(self, *args: Any, **kwargs: Any) -> None:
+    def __init__(self, name: list[str], *args: Any, **kwargs: Any) -> None:
         ...
 
     async def execute(self, msg: Message, args: str) -> None:
