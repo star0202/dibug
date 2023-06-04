@@ -3,7 +3,7 @@ from subprocess import run
 from discord import Message
 
 from ..abc import DibugCommand
-from ..utils import chunked_fields, shell_embed
+from ..utils import DibugEmbed
 
 
 class ShellCommand(DibugCommand):
@@ -23,27 +23,35 @@ class ShellCommand(DibugCommand):
         result = run(args, capture_output=True, shell=True, text=True)
 
         if result.stderr:
-            embed = shell_embed(args, 0xFF0000)
-
-            chunked_fields(
-                embed,
-                "Error",
-                "sh",
-                result.stderr,
-                1024 - 10,
+            embed = (
+                DibugEmbed("Shell", True)
+                .chunked_fields(
+                    "Input",
+                    args,
+                    "sh",
+                )
+                .chunked_fields(
+                    "Error",
+                    result.stderr,
+                    "sh",
+                )
             )
 
             await res.edit(content=None, embed=embed)
             return
 
-        embed = shell_embed(args, 0x2B2D31)
-
-        chunked_fields(
-            embed,
-            "Output",
-            "sh",
-            result.stdout,
-            1024 - 10,
+        embed = (
+            DibugEmbed("Shell")
+            .chunked_fields(
+                "Input",
+                args,
+                "sh",
+            )
+            .chunked_fields(
+                "Output",
+                result.stdout,
+                "sh",
+            )
         )
 
         await res.edit(content=None, embed=embed)

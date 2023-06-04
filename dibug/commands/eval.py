@@ -4,7 +4,7 @@ from async_eval import eval
 from discord import Client, Message
 
 from ..abc import DibugCommand
-from ..utils import chunked_fields, eval_embed, inspect
+from ..utils import DibugEmbed, inspect
 
 
 class EvalCommand(DibugCommand):
@@ -25,31 +25,40 @@ class EvalCommand(DibugCommand):
         try:
             result = eval(args, {"client": self.client, "msg": msg})
 
-            embed = eval_embed(args, 0x2B2D31)
-
-            chunked_fields(
-                embed,
-                "Output (Verbose)",
-                "py",
-                "\n".join(inspect(result, 0)),
-                1024 - 10,
-            )
-
-            chunked_fields(
-                embed,
-                "Output (Compact)",
-                "py",
-                str(result),
-                1024 - 10,
+            embed = (
+                DibugEmbed("Eval")
+                .chunked_fields(
+                    "Input",
+                    args,
+                    "py",
+                )
+                .chunked_fields(
+                    "Output (Verbose)",
+                    "\n".join(inspect(result, 0)),
+                    "py",
+                )
+                .chunked_fields(
+                    "Output (Compact)",
+                    str(result),
+                    "py",
+                )
             )
 
             await res.edit(content=None, embed=embed)
 
         except Exception as e:
-            embed = eval_embed(args, 0xFF0000)
-
-            chunked_fields(
-                embed, "Error", "py", "".join(format_exception(e)), 1024 - 10
+            embed = (
+                DibugEmbed("Eval", True)
+                .chunked_fields(
+                    "Input",
+                    args,
+                    "py",
+                )
+                .chunked_fields(
+                    "Error",
+                    "\n".join(format_exception(e)),
+                    "py",
+                )
             )
 
             await res.edit(content=None, embed=embed)
