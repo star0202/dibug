@@ -7,6 +7,14 @@
 
 Debugging Tool for discord.py
 
+# Installation
+
+Python 3.10+ is required
+
+```sh
+pip install dibug
+```
+
 # Usage
 
 ```py
