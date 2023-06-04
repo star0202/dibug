@@ -5,6 +5,7 @@ description = "Debugging Tool for discord.py"
 authors = ["Starcea <stardev.uwu@gmail.com>"]
 license = "MIT"
 readme = "README.md"
+repository = "https://github.com/star0202/dibug"
 
 [tool.poetry.dependencies]
 python = "^3.10"
