@@ -20,10 +20,10 @@ dibug.utils.embed module
    :undoc-members:
    :show-inheritance:
 
-dibug.utils.inspect module
---------------------------
+dibug.utils.object module
+-------------------------
 
-.. automodule:: dibug.utils.inspect
+.. automodule:: dibug.utils.object
    :members:
    :undoc-members:
    :show-inheritance:
