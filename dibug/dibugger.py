@@ -20,7 +20,7 @@ class Dibugger:
         The message to send when the user doesn't have permission, by default "No Permission".
     prefix : str
         The prefix for the debugger, by default "!dbg".
-    default : Literal["info"]
+    default : Literal["info", "kill"]
         The default command to run when no command is specified, command shouldn't have any arguments, by default "info".
     patch_on_init : bool
         Whether to patch the client on init, by default True.
@@ -38,7 +38,7 @@ class Dibugger:
         user_has_perm: Callable[[Message], Coroutine[Any, Any, bool]],
         no_perm_msg: str = "No Permission",
         prefix: str = "!dbg",
-        default: Literal["info"] = "info",
+        default: Literal["info", "kill"] = "info",
         patch_on_init: bool = True,
     ):
         self.client = client
