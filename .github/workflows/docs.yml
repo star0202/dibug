@@ -41,7 +41,7 @@ jobs:
       - name: Build docs
         run: |
           cd docs
-          sphinx-build -T -W --keep-going . _build/html
+          poetry run sphinx-build -T -W --keep-going . _build/html
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload artifact
