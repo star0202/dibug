@@ -7,6 +7,31 @@ from .commands import EvalCommand, InfoCommand, KillCommand, ShellCommand
 
 
 class Dibugger:
+    """
+    A debugger for discord.py bots.
+
+    Parameters
+    ----------
+    client : Client
+        The discord.py client to attach the debugger to.
+    user_has_perm : Callable[[Message], Coroutine[Any, Any, bool]]
+        A function that returns whether the user has permission to use the debugger.
+    no_perm_msg : str
+        The message to send when the user doesn't have permission, by default "No Permission".
+    prefix : str
+        The prefix for the debugger, by default "!dbg".
+    default : Literal["info"]
+        The default command to run when no command is specified, command shouldn't have any arguments, by default "info".
+    patch_on_init : bool
+        Whether to patch the client on init, by default True.
+        If False, you will have to manually call :meth:`handle_msg` on every message, and every edited message if you want.
+
+    Methods
+    -------
+    handle_msg(msg: Message)
+        Handle a message and execute the command if it exists.
+    """
+
     def __init__(
         self,
         client: Client,
@@ -65,6 +90,19 @@ class Dibugger:
         self.__commands.append(command(name, *args, **kwargs))
 
     async def handle_msg(self, msg: Message) -> None:
+        """
+        Handle a message and execute the command if it exists.
+
+        Parameters
+        ----------
+        msg : Message
+            The message to handle.
+
+        Returns
+        -------
+        None
+        """
+
         if msg.author.bot or not msg.content.startswith(self.prefix):
             return
 
