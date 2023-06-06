@@ -14,12 +14,14 @@ class Dibugger:
         no_perm_msg: str = "No Permission",
         prefix: str = "!dbg",
         default: Literal["info"] = "info",
+        patch_on_init: bool = True,
     ):
         self.client = client
         self.user_has_perm = user_has_perm
         self.no_perm_msg = no_perm_msg
         self.prefix = prefix
         self.default = default
+        self.patch_on_init = patch_on_init
 
         self.__commands: list[DibugCommand] = []
 
@@ -28,33 +30,34 @@ class Dibugger:
         self.__register_command(KillCommand, ["kill", "k", "shutdown"])
         self.__register_command(ShellCommand, ["shell", "sh"])
 
-        if hasattr(self.client, "on_message"):
-            original_func = getattr(self.client, "on_message")
+        if self.patch_on_init:
+            if hasattr(self.client, "on_message"):
+                original_func = getattr(self.client, "on_message")
 
-            async def patch(msg: Message) -> None:
-                await original_func(msg)
-                await self.handle_msg(msg)
+                async def patch(msg: Message) -> None:
+                    await original_func(msg)
+                    await self.handle_msg(msg)
 
-        else:
+            else:
 
-            async def patch(msg: Message) -> None:
-                await self.handle_msg(msg)
+                async def patch(msg: Message) -> None:
+                    await self.handle_msg(msg)
 
-        setattr(self.client, "on_message", patch)
+            setattr(self.client, "on_message", patch)
 
-        if hasattr(self.client, "on_message_edit"):
-            original_func = getattr(self.client, "on_message_edit")
+            if hasattr(self.client, "on_message_edit"):
+                original_func = getattr(self.client, "on_message_edit")
 
-            async def patch(before: Message, after: Message) -> None:
-                await original_func(before, after)
-                await self.handle_msg(after)
+                async def patch(before: Message, after: Message) -> None:
+                    await original_func(before, after)
+                    await self.handle_msg(after)
 
-        else:
+            else:
 
-            async def patch(_, after: Message) -> None:
-                await self.handle_msg(after)
+                async def patch(_, after: Message) -> None:
+                    await self.handle_msg(after)
 
-        setattr(self.client, "on_message_edit", patch)
+            setattr(self.client, "on_message_edit", patch)
 
     def __register_command(
         self, command: Type[DibugCommand], name: list[str], *args: Any, **kwargs: Any
