@@ -42,6 +42,20 @@ class Dibugger:
 
         setattr(self.client, "on_message", patch)
 
+        if hasattr(self.client, "on_message_edit"):
+            original_func = getattr(self.client, "on_message_edit")
+
+            async def patch(before: Message, after: Message) -> None:
+                await original_func(before, after)
+                await self.handle_msg(after)
+
+        else:
+
+            async def patch(_, after: Message) -> None:
+                await self.handle_msg(after)
+
+        setattr(self.client, "on_message_edit", patch)
+
     def __register_command(
         self, command: Type[DibugCommand], name: list[str], *args: Any, **kwargs: Any
     ) -> None:
