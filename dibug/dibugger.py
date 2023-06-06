@@ -81,7 +81,9 @@ class Dibugger:
 
             else:
 
-                async def on_message_edit_patch(_, after: Message) -> None:
+                async def on_message_edit_patch(
+                    before: Message, after: Message
+                ) -> None:
                     await self.handle_msg(after)
 
             setattr(self.client, "on_message_edit", on_message_edit_patch)
