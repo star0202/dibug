@@ -23,7 +23,7 @@ types-setuptools = "^67.8.0.0"
 types-psutil = "^5.9.5.13"
 
 [tool.poetry.group.docs.dependencies]
-sphinx = "6.2.1"
+sphinx = "7.0.1"
 sphinx-rtd-theme = "^1.2.1"
 
 [tool.isort]
