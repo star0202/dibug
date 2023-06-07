@@ -48,12 +48,12 @@ class Dibugger:
         self.default = default
         self.patch_on_init = patch_on_init
 
-        self.__commands: list[DibugCommand] = []
+        self._commands: list[DibugCommand] = []
 
-        self.__register_command(EvalCommand, ["eval", "e", "python", "py"], self.client)
-        self.__register_command(InfoCommand, ["info", "i"], self.client)
-        self.__register_command(KillCommand, ["kill", "k", "shutdown"])
-        self.__register_command(ShellCommand, ["shell", "sh"])
+        self._register_command(EvalCommand, ["eval", "e", "python", "py"], self.client)
+        self._register_command(InfoCommand, ["info", "i"], self.client)
+        self._register_command(KillCommand, ["kill", "k", "shutdown"])
+        self._register_command(ShellCommand, ["shell", "sh"])
 
         if self.patch_on_init:
             if hasattr(self.client, "on_message"):
@@ -88,10 +88,10 @@ class Dibugger:
 
             setattr(self.client, "on_message_edit", on_message_edit_patch)
 
-    def __register_command(
+    def _register_command(
         self, command: Type[DibugCommand], name: list[str], *args: Any, **kwargs: Any
     ) -> None:
-        self.__commands.append(command(name, *args, **kwargs))
+        self._commands.append(command(name, *args, **kwargs))
 
     async def handle_msg(self, msg: Message) -> None:
         """
