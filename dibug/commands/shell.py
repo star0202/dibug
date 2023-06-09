@@ -2,11 +2,11 @@ from subprocess import run
 
 from discord import Message
 
-from ..abc import DibugCommand
+from ..abc import DibugCommandABC
 from ..utils import DibugEmbed
 
 
-class ShellCommand(DibugCommand):
+class ShellCommand(DibugCommandABC):
     def __init__(self, name: list[str]) -> None:
         self.name = name
 

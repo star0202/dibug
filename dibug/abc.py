@@ -4,7 +4,7 @@ from typing import Any
 from discord import Message
 
 
-class DibugCommand(ABC):
+class DibugCommandABC(ABC):
     name: list[str]
 
     def __init__(self, name: list[str], *args: Any, **kwargs: Any) -> None:

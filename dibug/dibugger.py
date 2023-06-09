@@ -2,7 +2,7 @@ from typing import Any, Callable, Coroutine, Literal, Type
 
 from discord import Client, Message
 
-from .abc import DibugCommand
+from .abc import DibugCommandABC
 from .commands import EvalCommand, InfoCommand, KillCommand, ShellCommand
 
 
@@ -48,7 +48,7 @@ class Dibugger:
         self.default = default
         self.patch_on_init = patch_on_init
 
-        self._commands: list[DibugCommand] = []
+        self._commands: list[DibugCommandABC] = []
 
         self._register_command(EvalCommand, ["eval", "e", "python", "py"], self.client)
         self._register_command(InfoCommand, ["info", "i"], self.client)
@@ -89,7 +89,7 @@ class Dibugger:
             setattr(self.client, "on_message_edit", on_message_edit_patch)
 
     def _register_command(
-        self, command: Type[DibugCommand], name: list[str], *args: Any, **kwargs: Any
+        self, command: Type[DibugCommandABC], name: list[str], *args: Any, **kwargs: Any
     ) -> None:
         self._commands.append(command(name, *args, **kwargs))
 

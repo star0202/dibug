@@ -5,10 +5,10 @@ from discord import Client, Message, __version__
 from pkg_resources import get_distribution
 from psutil import Process
 
-from ..abc import DibugCommand
+from ..abc import DibugCommandABC
 
 
-class InfoCommand(DibugCommand):
+class InfoCommand(DibugCommandABC):
     def __init__(self, name: list[str], client: Client) -> None:
         self.name = name
 

@@ -1,10 +1,10 @@
 from discord import Message
 from psutil import Process
 
-from ..abc import DibugCommand
+from ..abc import DibugCommandABC
 
 
-class KillCommand(DibugCommand):
+class KillCommand(DibugCommandABC):
     def __init__(self, name: list[str]) -> None:
         self.name = name
 
