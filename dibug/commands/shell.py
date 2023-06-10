@@ -50,7 +50,7 @@ class ShellCommand(DibugCommandABC):
             .chunked_fields(
                 "Output",
                 result.stdout,
-                "sh",
+                "ansi",
             )
         )
 
