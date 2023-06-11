@@ -22,7 +22,7 @@ from discord import Client, Intents, Message
 
 from dibug import Dibugger
 
-owners = [798690702635827200]
+owners = [1234567890]  # owners id
 
 
 async def user_has_perm(msg: Message) -> bool:
@@ -35,10 +35,10 @@ class Bot(Client):
         intents.message_content = True  # dibug requires message content intent
         super().__init__(intents=intents)
 
-        self.dibugger = Dibugger(self, user_has_perm)
-
 
 bot = Bot()
+
+dibugger = Dibugger(bot, user_has_perm)
 
 bot.run("token")
 ```
