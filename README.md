@@ -29,16 +29,11 @@ async def user_has_perm(msg: Message) -> bool:
     return msg.author.id in owners
 
 
-class Bot(Client):
-    def __init__(self) -> None:
-        intents = Intents.default()
-        intents.message_content = True  # dibug requires message content intent
-        super().__init__(intents=intents)
+intents = Intents.default()
+intents.message_content = True  # dibug requires message content intent
 
-
-bot = Bot()
-
-dibugger = Dibugger(bot, user_has_perm)
+bot = Client(intents=intents)
+Dibugger.attach(bot, user_has_perm)
 
 bot.run("token")
 ```

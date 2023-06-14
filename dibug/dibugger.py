@@ -30,6 +30,18 @@ class Dibugger:
     -------
     handle_msg(msg: Message)
         Handle a message and execute the command if it exists.
+
+    Static Methods
+    --------------
+    attach(
+        client: Client,
+        user_has_perm: Callable[[Message], Coroutine[Any, Any, bool]],
+        no_perm_msg: str = "No Permission",
+        prefix: str = "!dbg",
+        default: Literal["info", "kill"] = "info",
+        patch_on_init: bool = True,
+    ) -> Dibugger
+        Attach a debugger to a discord.py client.
     """
 
     def __init__(
@@ -40,7 +52,7 @@ class Dibugger:
         prefix: str = "!dbg",
         default: Literal["info", "kill"] = "info",
         patch_on_init: bool = True,
-    ):
+    ) -> None:
         self.client = client
         self.user_has_perm = user_has_perm
         self.no_perm_msg = no_perm_msg
@@ -92,6 +104,48 @@ class Dibugger:
         self, command: Type[DibugCommandABC], name: list[str], *args: Any, **kwargs: Any
     ) -> None:
         self._commands.append(command(name, *args, **kwargs))
+
+    @staticmethod
+    def attach(
+        client: Client,
+        user_has_perm: Callable[[Message], Coroutine[Any, Any, bool]],
+        no_perm_msg: str = "No Permission",
+        prefix: str = "!dbg",
+        default: Literal["info", "kill"] = "info",
+        patch_on_init: bool = True,
+    ) -> "Dibugger":
+        """
+        Attach a debugger to a discord.py client.
+
+        Parameters
+        ----------
+        client : Client
+            The discord.py client to attach the debugger to.
+        user_has_perm : Callable[[Message], Coroutine[Any, Any, bool]]
+            A function that returns whether the user has permission to use the debugger.
+        no_perm_msg : str
+            The message to send when the user doesn't have permission, by default "No Permission".
+        prefix : str
+            The prefix for the debugger, by default "!dbg".
+        default : Literal["info", "kill"]
+            The default command to run when no command is specified, command shouldn't have any arguments, by default "info".
+        patch_on_init : bool
+            Whether to patch the client on init, by default True.
+            If False, you will have to manually call :meth:`handle_msg` on every message, and every edited message if you want.
+
+        Returns
+        -------
+        Dibugger
+        """
+
+        return Dibugger(
+            client,
+            user_has_perm,
+            no_perm_msg=no_perm_msg,
+            prefix=prefix,
+            default=default,
+            patch_on_init=patch_on_init,
+        )
 
     async def handle_msg(self, msg: Message) -> None:
         """
