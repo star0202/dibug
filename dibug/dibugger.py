@@ -31,7 +31,7 @@ class Dibugger:
     handle_msg(msg: Message)
         Handle a message and execute the command if it exists.
 
-    Static Methods
+    Class Methods
     --------------
     attach(
         client: Client,
@@ -105,8 +105,9 @@ class Dibugger:
     ) -> None:
         self._commands.append(command(name, *args, **kwargs))
 
-    @staticmethod
+    @classmethod
     def attach(
+        cls,
         client: Client,
         user_has_perm: Callable[[Message], Coroutine[Any, Any, bool]],
         no_perm_msg: str = "No Permission",
@@ -123,28 +124,29 @@ class Dibugger:
             The discord.py client to attach the debugger to.
         user_has_perm : Callable[[Message], Coroutine[Any, Any, bool]]
             A function that returns whether the user has permission to use the debugger.
-        no_perm_msg : str
+        no_perm_msg : str, optional
             The message to send when the user doesn't have permission, by default "No Permission".
-        prefix : str
+        prefix : str, optional
             The prefix for the debugger, by default "!dbg".
-        default : Literal["info", "kill"]
+        default : Literal["info", "kill"], optional
             The default command to run when no command is specified, command shouldn't have any arguments, by default "info".
-        patch_on_init : bool
+        patch_on_init : bool, optional
             Whether to patch the client on init, by default True.
             If False, you will have to manually call :meth:`handle_msg` on every message, and every edited message if you want.
 
         Returns
         -------
         Dibugger
+            The debugger that was attached.
         """
 
-        return Dibugger(
+        return cls(
             client,
             user_has_perm,
-            no_perm_msg=no_perm_msg,
-            prefix=prefix,
-            default=default,
-            patch_on_init=patch_on_init,
+            no_perm_msg,
+            prefix,
+            default,
+            patch_on_init,
         )
 
     async def handle_msg(self, msg: Message) -> None:
