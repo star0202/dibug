@@ -135,21 +135,18 @@ files = [
 
 [[package]]
 name = "async-eval"
-version = "0.1.11"
+version = "0.2.0"
 description = "eval async code from sync"
 optional = false
 python-versions = ">=3.7,<4.0"
 files = [
-    {file = "async_eval-0.1.11-py3-none-any.whl", hash = "sha256:5269ee4dbfb65a40849be7891e33863d8d8be958448e444801b7f408d2a38323"},
-    {file = "async_eval-0.1.11.tar.gz", hash = "sha256:2590880fdf9eae73ce17979f9a4892bb7e683bdbe11b4a47f1530a0461cd0383"},
+    {file = "async_eval-0.2.0-py3-none-any.whl", hash = "sha256:243b8e6faca300d9b8896baaa0d2e6ac58d66e8409b84e8fdcc33c3b68d908e4"},
+    {file = "async_eval-0.2.0.tar.gz", hash = "sha256:3436a30a19bc42715a3937474117b83e5111f842e4307395df84bf3415d7c1a8"},
 ]
 
-[package.dependencies]
-nest-asyncio = ">=1.5.6,<2.0.0"
-
 [package.extras]
-all = ["pydevd-pycharm (<=223.4884.74)", "trio (>=0.21,<0.23)"]
-pydevd-pycharm = ["pydevd-pycharm (<=223.4884.74)"]
+all = ["pydevd-pycharm (<232.7295.9)", "trio (>=0.21,<0.23)"]
+pydevd-pycharm = ["pydevd-pycharm (<232.7295.9)"]
 trio = ["trio (>=0.21,<0.23)"]
 
 [[package]]
@@ -730,17 +727,6 @@ files = [
 ]
 
 [[package]]
-name = "nest-asyncio"
-version = "1.5.6"
-description = "Patch asyncio to allow nested event loops"
-optional = false
-python-versions = ">=3.5"
-files = [
-    {file = "nest_asyncio-1.5.6-py3-none-any.whl", hash = "sha256:b9a953fb40dceaa587d109609098db21900182b16440652454a146cffb06e8b8"},
-    {file = "nest_asyncio-1.5.6.tar.gz", hash = "sha256:d267cc1ff794403f7df692964d1d2a3fa9418ffea2a3f6859a439ff482fef290"},
-]
-
-[[package]]
 name = "packaging"
 version = "23.1"
 description = "Core utilities for Python packages"
@@ -1156,4 +1142,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "c1a01069e20cd32e32c2950592963b93671a62a0a5581ba515feab749c0f8063"
+content-hash = "f88228a2ae79872de3c6bd9326a5ab0500212ff6042d6cfd9045874b837bbde2"
