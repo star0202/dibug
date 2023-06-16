@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Any, Callable, Coroutine, Literal, Type
 
 from discord import Client, Message
@@ -114,7 +116,7 @@ class Dibugger:
         prefix: str = "!dbg",
         default: Literal["info", "kill"] = "info",
         patch_on_init: bool = True,
-    ) -> "Dibugger":
+    ) -> Dibugger:
         """
         Attach a debugger to a discord.py client.
 

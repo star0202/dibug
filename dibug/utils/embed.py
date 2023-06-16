@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from discord import Embed
 
 from .chunk import chunk_string
@@ -11,7 +13,7 @@ class DibugEmbed(Embed):
     ):
         super().__init__(title=title, color=0xFF0000 if error else 0x2B2D31)
 
-    def chunked_fields(self, name: str, value: str, lang: str) -> "DibugEmbed":
+    def chunked_fields(self, name: str, value: str, lang: str) -> DibugEmbed:
         chunked = chunk_string(value, 1024 - (8 + len(lang)))
         for idx in range(len(chunked)):
             self.add_field(
