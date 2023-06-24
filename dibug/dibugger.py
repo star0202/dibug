@@ -72,7 +72,7 @@ class Dibugger:
         if self.patch_on_init:
             setattr(self.client, "on_message", self.handle_msg)
 
-            async def handle_edited_msg(_, after: Message) -> None:
+            async def handle_edited_msg(_: Any, after: Message) -> None:
                 await self.handle_msg(after)
 
             setattr(self.client, "on_message_edit", handle_edited_msg)
