@@ -1,14 +1,11 @@
 from abc import ABC
-from typing import Any
 
 from discord import Message
 
 
 class DibugCommandABC(ABC):
-    name: list[str]
-
-    def __init__(self, name: list[str], *args: Any, **kwargs: Any) -> None:
-        ...
+    def __init__(self, name: list[str]) -> None:
+        self.name = name
 
     async def execute(self, msg: Message, args: str) -> None:
         ...

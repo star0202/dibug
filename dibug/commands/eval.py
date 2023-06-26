@@ -9,7 +9,7 @@ from ..utils import DibugEmbed, inspect
 
 class EvalCommand(DibugCommandABC):
     def __init__(self, name: list[str], client: Client) -> None:
-        self.name = name
+        super().__init__(name)
 
         self.__client = client
 
