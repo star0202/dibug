@@ -1,11 +1,12 @@
 from platform import release, system
 from sys import platform, version
 
-from discord import Client, Message, __version__
-from pkg_resources import get_distribution
+from discord import Client, Message
+from discord import __version__ as discord_version
 from psutil import Process
 
 from ..abc import DibugCommandABC
+from ..version import __version__ as dibug_version
 
 
 class InfoCommand(DibugCommandABC):
@@ -19,9 +20,7 @@ class InfoCommand(DibugCommandABC):
 
         lines.append(f"Python `{version}` on `{system()} {release()} ({platform})`")
 
-        lines.append(
-            f"dibug `{get_distribution('dibug').version}`, discord.py `{__version__}`"
-        )
+        lines.append(f"dibug `{dibug_version}`, discord.py `{discord_version}`")
 
         lines.append("")
 

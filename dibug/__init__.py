@@ -1,3 +1,2 @@
 from .dibugger import Dibugger as Dibugger
-
-__version__ = "0.5.0"
+from .version import __version__ as __version__
