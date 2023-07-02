@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "dibug"
-version = "0.5.0"
+version = "0.5.1"
 description = "Debugging Tool for discord.py"
 authors = ["Starcea <stardev.uwu@gmail.com>"]
 license = "MIT"
