@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Callable, Coroutine, Type
+from typing import Any, Callable, Coroutine
 
 from discord import Client, Message
 
@@ -73,7 +73,7 @@ class Dibugger:
 
             setattr(self.client, "on_message_edit", handle_edited_msg)
 
-    def _register_command(self, command: Type[DibugCommand], client: Client) -> None:
+    def _register_command(self, command: type[DibugCommand], client: Client) -> None:
         self._commands.append(command(client))
 
     @classmethod
