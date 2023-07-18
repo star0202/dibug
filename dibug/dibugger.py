@@ -1,14 +1,11 @@
 from __future__ import annotations
 
-from typing import Any, Callable, Coroutine, Literal, Type
+from typing import Any, Callable, Coroutine, Type
 
 from discord import Client, Message
 
 from dibug.classes.command import DibugCommand
-from dibug.commands.eval import EvalCommand
-from dibug.commands.info import InfoCommand
-from dibug.commands.kill import KillCommand
-from dibug.commands.shell import ShellCommand
+from dibug.commands import commands
 
 
 class Dibugger:
@@ -25,8 +22,6 @@ class Dibugger:
         The message to send when the user doesn't have permission, by default "No Permission".
     prefix : str
         The prefix for the debugger, by default "!dbg".
-    default : Literal["info", "kill"]
-        The default command to run when no command is specified, command shouldn't have any arguments, by default "info".
     patch_on_init : bool
         Whether to patch the client on init, by default True.
         If False, you will have to manually call :meth:`handle_msg` on every message, and every edited message if you want.
@@ -43,7 +38,6 @@ class Dibugger:
         user_has_perm: Callable[[Message], Coroutine[Any, Any, bool]],
         no_perm_msg: str = "No Permission",
         prefix: str = "!dbg",
-        default: Literal["info", "kill"] = "info",
         patch_on_init: bool = True,
     ) -> Dibugger
         Attach a debugger to a discord.py client.
@@ -55,22 +49,21 @@ class Dibugger:
         user_has_perm: Callable[[Message], Coroutine[Any, Any, bool]],
         no_perm_msg: str = "No Permission",
         prefix: str = "!dbg",
-        default: Literal["info", "kill"] = "info",
         patch_on_init: bool = True,
     ) -> None:
         self.client = client
         self.user_has_perm = user_has_perm
         self.no_perm_msg = no_perm_msg
         self.prefix = prefix
-        self.default = default
         self.patch_on_init = patch_on_init
 
         self._commands: list[DibugCommand] = []
 
-        self._register_command(EvalCommand, ["eval", "e", "python", "py"], self.client)
-        self._register_command(InfoCommand, ["info", "i"], self.client)
-        self._register_command(KillCommand, ["kill", "k", "shutdown"])
-        self._register_command(ShellCommand, ["shell", "sh"])
+        for command in commands:
+            self._register_command(
+                command,
+                self.client,
+            )
 
         if self.patch_on_init:
             setattr(self.client, "on_message", self.handle_msg)
@@ -80,10 +73,8 @@ class Dibugger:
 
             setattr(self.client, "on_message_edit", handle_edited_msg)
 
-    def _register_command(
-        self, command: Type[DibugCommand], name: list[str], *args: Any, **kwargs: Any
-    ) -> None:
-        self._commands.append(command(name, *args, **kwargs))
+    def _register_command(self, command: Type[DibugCommand], client: Client) -> None:
+        self._commands.append(command(client))
 
     @classmethod
     def attach(
@@ -92,7 +83,6 @@ class Dibugger:
         user_has_perm: Callable[[Message], Coroutine[Any, Any, bool]],
         no_perm_msg: str = "No Permission",
         prefix: str = "!dbg",
-        default: Literal["info", "kill"] = "info",
         patch_on_init: bool = True,
     ) -> Dibugger:
         """
@@ -108,8 +98,6 @@ class Dibugger:
             The message to send when the user doesn't have permission, by default "No Permission".
         prefix : str, optional
             The prefix for the debugger, by default "!dbg".
-        default : Literal["info", "kill"], optional
-            The default command to run when no command is specified, command shouldn't have any arguments, by default "info".
         patch_on_init : bool, optional
             Whether to patch the client on init, by default True.
             If False, you will have to manually call :meth:`handle_msg` on every message, and every edited message if you want.
@@ -125,7 +113,6 @@ class Dibugger:
             user_has_perm,
             no_perm_msg,
             prefix,
-            default,
             patch_on_init,
         )
 
@@ -150,13 +137,10 @@ class Dibugger:
             await msg.reply(self.no_perm_msg)
             return
 
-        cmd = msg.content[len(self.prefix) :].split()
-
-        if not cmd:
-            cmd = [self.default]
+        cmd = msg.content[len(self.prefix) :]
 
         for command in self._commands:
             for name in command.aliases:
-                if cmd[0] == name:
-                    await command.execute(msg, " ".join(cmd[1:]))
+                if cmd.startswith(name):
+                    await command.execute(msg, cmd[len(name) :])
                     return

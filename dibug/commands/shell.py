@@ -7,6 +7,8 @@ from dibug.classes.embed import DibugEmbed
 
 
 class ShellCommand(DibugCommand):
+    aliases = ["shell", "sh"]
+
     async def execute(self, msg: Message, args: str) -> None:
         if not args:
             await msg.reply("Missing code")

@@ -42,7 +42,7 @@ bot.run("token")
 
 ### Default Prefix: `!dbg`
 
-- `<prefix>` | `<prefix> info | i`: Show bot info
+- `<prefix> info | i`: Show bot info
 
 - `<prefix> eval | e | python | py <code>`: Evaluate python code
 - `<prefix> kill | k | shutdown`: Kill bot process

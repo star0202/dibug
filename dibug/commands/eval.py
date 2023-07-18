@@ -1,7 +1,7 @@
 from traceback import format_exception
 
 from async_eval import eval
-from discord import Client, Message
+from discord import Message
 
 from dibug.classes.command import DibugCommand
 from dibug.classes.embed import DibugEmbed
@@ -9,10 +9,7 @@ from dibug.utils.object import inspect
 
 
 class EvalCommand(DibugCommand):
-    def __init__(self, name: list[str], client: Client) -> None:
-        super().__init__(name)
-
-        self.__client = client
+    aliases = ["eval", "e", "python", "py"]
 
     async def execute(self, msg: Message, args: str) -> None:
         if not args:
@@ -25,7 +22,7 @@ class EvalCommand(DibugCommand):
             args = args[6:-3]
 
         try:
-            result = eval(args, {"client": self.__client, "msg": msg})
+            result = eval(args, {"client": self._client, "msg": msg})
 
             embed = (
                 DibugEmbed("Eval")
