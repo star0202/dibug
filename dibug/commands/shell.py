@@ -2,11 +2,11 @@ from subprocess import run
 
 from discord import Message
 
-from ..abc import DibugCommandABC
 from ..utils import DibugEmbed
+from . import DibugCommand
 
 
-class ShellCommand(DibugCommandABC):
+class ShellCommand(DibugCommand):
     async def execute(self, msg: Message, args: str) -> None:
         if not args:
             await msg.reply("Missing code")

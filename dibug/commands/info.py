@@ -5,11 +5,11 @@ from discord import Client, Message
 from discord import __version__ as discord_version
 from psutil import Process
 
-from ..abc import DibugCommandABC
+from . import DibugCommand
 from ..version import __version__ as dibug_version
 
 
-class InfoCommand(DibugCommandABC):
+class InfoCommand(DibugCommand):
     def __init__(self, name: list[str], client: Client) -> None:
         super().__init__(name)
 

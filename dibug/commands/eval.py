@@ -3,11 +3,11 @@ from traceback import format_exception
 from async_eval import eval
 from discord import Client, Message
 
-from ..abc import DibugCommandABC
+from . import DibugCommand
 from ..utils import DibugEmbed, inspect
 
 
-class EvalCommand(DibugCommandABC):
+class EvalCommand(DibugCommand):
     def __init__(self, name: list[str], client: Client) -> None:
         super().__init__(name)
 

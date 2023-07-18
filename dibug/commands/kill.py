@@ -1,10 +1,10 @@
 from discord import Message
 from psutil import Process
 
-from ..abc import DibugCommandABC
+from . import DibugCommand
 
 
-class KillCommand(DibugCommandABC):
+class KillCommand(DibugCommand):
     async def execute(self, msg: Message, args: str) -> None:
         await msg.reply("Shutting down...")
 
