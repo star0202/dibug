@@ -12,14 +12,6 @@ dibug.utils.chunk module
    :undoc-members:
    :show-inheritance:
 
-dibug.utils.embed module
-------------------------
-
-.. automodule:: dibug.utils.embed
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 dibug.utils.object module
 -------------------------
 
