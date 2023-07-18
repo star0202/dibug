@@ -156,7 +156,7 @@ class Dibugger:
             cmd = [self.default]
 
         for command in self._commands:
-            for name in command.name:
+            for name in command.aliases:
                 if cmd[0] == name:
                     await command.execute(msg, " ".join(cmd[1:]))
                     return
