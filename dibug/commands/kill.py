@@ -1,7 +1,7 @@
 from discord import Message
 from psutil import Process
 
-from . import DibugCommand
+from dibug.classes.command import DibugCommand
 
 
 class KillCommand(DibugCommand):

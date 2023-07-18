@@ -4,7 +4,11 @@ from typing import Any, Callable, Coroutine, Literal, Type
 
 from discord import Client, Message
 
-from .commands import DibugCommand, EvalCommand, InfoCommand, KillCommand, ShellCommand
+from dibug.classes.command import DibugCommand
+from dibug.commands.eval import EvalCommand
+from dibug.commands.info import InfoCommand
+from dibug.commands.kill import KillCommand
+from dibug.commands.shell import ShellCommand
 
 
 class Dibugger:

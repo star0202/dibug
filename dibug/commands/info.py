@@ -5,8 +5,8 @@ from discord import Client, Message
 from discord import __version__ as discord_version
 from psutil import Process
 
-from . import DibugCommand
-from ..version import __version__ as dibug_version
+from dibug.classes.command import DibugCommand
+from dibug.version import __version__ as dibug_version
 
 
 class InfoCommand(DibugCommand):

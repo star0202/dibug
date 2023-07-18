@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from discord import Embed
 
-from .chunk import chunk_string
+from dibug.utils.chunk import chunk_string
 
 
 class DibugEmbed(Embed):

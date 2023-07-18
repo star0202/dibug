@@ -3,8 +3,9 @@ from traceback import format_exception
 from async_eval import eval
 from discord import Client, Message
 
-from . import DibugCommand
-from ..utils import DibugEmbed, inspect
+from dibug.classes.command import DibugCommand
+from dibug.classes.embed import DibugEmbed
+from dibug.utils.object import inspect
 
 
 class EvalCommand(DibugCommand):

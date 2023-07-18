@@ -2,8 +2,8 @@ from subprocess import run
 
 from discord import Message
 
-from ..utils import DibugEmbed
-from . import DibugCommand
+from dibug.classes.command import DibugCommand
+from dibug.classes.embed import DibugEmbed
 
 
 class ShellCommand(DibugCommand):
