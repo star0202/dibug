@@ -18,11 +18,11 @@ class Dibugger:
         The discord.py client to attach the debugger to.
     user_has_perm : Callable[[Message], Coroutine[Any, Any, bool]]
         A function that returns whether the user has permission to use the debugger.
-    no_perm_msg : str
-        The message to send when the user doesn't have permission, by default "No Permission".
-    prefix : str
+    no_perm : Callable[[Message], Coroutine[Any, Any, None]]
+        A function that is called when the user doesn't have permission.
+    prefix : str, optional
         The prefix for the debugger, by default "!dbg".
-    patch_on_init : bool
+    patch_on_init : bool, optional
         Whether to patch the client on init, by default True.
         If False, you will have to manually call :meth:`handle_msg` on every message, and every edited message if you want.
 
@@ -36,7 +36,7 @@ class Dibugger:
     attach(
         client: Client,
         user_has_perm: Callable[[Message], Coroutine[Any, Any, bool]],
-        no_perm_msg: str = "No Permission",
+        no_perm: Callable[[Message], Coroutine[Any, Any, None]],
         prefix: str = "!dbg",
         patch_on_init: bool = True,
     ) -> Dibugger
@@ -47,13 +47,13 @@ class Dibugger:
         self,
         client: Client,
         user_has_perm: Callable[[Message], Coroutine[Any, Any, bool]],
-        no_perm_msg: str = "No Permission",
+        no_perm: Callable[[Message], Coroutine[Any, Any, None]],
         prefix: str = "!dbg",
         patch_on_init: bool = True,
     ) -> None:
         self.client = client
         self.user_has_perm = user_has_perm
-        self.no_perm_msg = no_perm_msg
+        self.no_perm = no_perm
         self.prefix = prefix
         self.patch_on_init = patch_on_init
 
@@ -81,7 +81,7 @@ class Dibugger:
         cls,
         client: Client,
         user_has_perm: Callable[[Message], Coroutine[Any, Any, bool]],
-        no_perm_msg: str = "No Permission",
+        no_perm: Callable[[Message], Coroutine[Any, Any, None]],
         prefix: str = "!dbg",
         patch_on_init: bool = True,
     ) -> Dibugger:
@@ -94,8 +94,8 @@ class Dibugger:
             The discord.py client to attach the debugger to.
         user_has_perm : Callable[[Message], Coroutine[Any, Any, bool]]
             A function that returns whether the user has permission to use the debugger.
-        no_perm_msg : str, optional
-            The message to send when the user doesn't have permission, by default "No Permission".
+        no_perm : Callable[[Message], Coroutine[Any, Any, None]]
+            A function that is called when the user doesn't have permission.
         prefix : str, optional
             The prefix for the debugger, by default "!dbg".
         patch_on_init : bool, optional
@@ -111,7 +111,7 @@ class Dibugger:
         return cls(
             client,
             user_has_perm,
-            no_perm_msg,
+            no_perm,
             prefix,
             patch_on_init,
         )
@@ -134,7 +134,8 @@ class Dibugger:
             return
 
         if not await self.user_has_perm(msg):
-            await msg.reply(self.no_perm_msg)
+            await self.no_perm(msg)
+
             return
 
         cmd = msg.content[len(self.prefix) :]
@@ -143,4 +144,5 @@ class Dibugger:
             for name in command.aliases:
                 if cmd.startswith(name):
                     await command.execute(msg, cmd[len(name) :])
+
                     return
