@@ -29,11 +29,15 @@ async def user_has_perm(msg: Message) -> bool:
     return msg.author.id in owners
 
 
+async def no_perm(msg: Message) -> None:
+    await msg.reply("You don't have permission to use this command.")
+
+
 intents = Intents.default()
 intents.message_content = True  # dibug requires message content intent
 
 bot = Client(intents=intents)
-Dibugger.attach(bot, user_has_perm)
+Dibugger.attach(bot, user_has_perm, no_perm)
 
 bot.run("token")
 ```
