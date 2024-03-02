@@ -14,7 +14,7 @@ async-eval = "^0.1.11"
 psutil = "^5.9.5"
 
 [tool.poetry.group.style.dependencies]
-black = "^23.3.0"
+black = "^24.0.0"
 isort = "^5.12.0"
 
 [tool.poetry.group.type.dependencies]
