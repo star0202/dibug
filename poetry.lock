@@ -135,19 +135,19 @@ files = [
 
 [[package]]
 name = "async-eval"
-version = "0.2.0"
+version = "0.3.1"
 description = "eval async code from sync"
 optional = false
-python-versions = ">=3.7,<4.0"
+python-versions = "<4.0,>=3.7"
 files = [
-    {file = "async_eval-0.2.0-py3-none-any.whl", hash = "sha256:243b8e6faca300d9b8896baaa0d2e6ac58d66e8409b84e8fdcc33c3b68d908e4"},
-    {file = "async_eval-0.2.0.tar.gz", hash = "sha256:3436a30a19bc42715a3937474117b83e5111f842e4307395df84bf3415d7c1a8"},
+    {file = "async_eval-0.3.1-py3-none-any.whl", hash = "sha256:617e349fe829e66969bf40684e54a5a7db34b451e38b6db34a6488ec6c2034b0"},
+    {file = "async_eval-0.3.1.tar.gz", hash = "sha256:16dd640526ede361ad98d05df54fdbcd8a01300e28246a7bb05a00c378fffcfc"},
 ]
 
 [package.extras]
-all = ["pydevd-pycharm (<232.7295.9)", "trio (>=0.21,<0.23)"]
-pydevd-pycharm = ["pydevd-pycharm (<232.7295.9)"]
-trio = ["trio (>=0.21,<0.23)"]
+all = ["pydevd-pycharm (>=232.8660.147)", "trio (>=0.21)"]
+pydevd-pycharm = ["pydevd-pycharm (>=232.8660.147)"]
+trio = ["trio (>=0.21)"]
 
 [[package]]
 name = "async-timeout"
@@ -1151,4 +1151,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "50857a7cd87fc4f4b5445ec17a85fa2fb79ceeafab99909e7cb5f2eb8dd2d0fb"
+content-hash = "5f3f8b99ff4a4b112437f881ae4dd21b8162b35a6de6a151c1eb7612e44828e6"
