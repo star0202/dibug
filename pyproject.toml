@@ -15,7 +15,7 @@ psutil = "^6.0.0"
 
 [tool.poetry.group.style.dependencies]
 black = "^24.0.0"
-isort = "^5.12.0"
+isort = "^6.0.0"
 
 [tool.poetry.group.type.dependencies]
 mypy = "^1.3.0"
