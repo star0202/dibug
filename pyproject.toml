@@ -24,7 +24,7 @@ types-psutil = "^5.9.5.13"
 
 [tool.poetry.group.docs.dependencies]
 sphinx = "6.2.1"
-sphinx-rtd-theme = "^2.0.0"
+sphinx-rtd-theme = "^3.0.0"
 
 [tool.isort]
 profile = "black"
